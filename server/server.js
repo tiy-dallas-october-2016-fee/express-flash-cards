@@ -35,6 +35,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.get('/', (req, res) => { res.render('index.ejs'); });
+
 // The routes for the authentication stuff goes in this separate route file.
 app.use(require('./account-routes.js')(passport));
 
