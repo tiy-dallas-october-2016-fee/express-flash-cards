@@ -28,28 +28,17 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
 
-app.get('/login', function(req, res) {
-  res.render('login.ejs');
+// In every view we need to know if they are authenticated for the header, so add to locals
+app.use(function(req, res, next) {
+  res.locals.isAuthenticated = req.isAuthenticated();
+  console.log('locals', res.locals);
+  next();
 });
 
-app.post('/login',
-  passport.authenticate('local-login',
-                        { successRedirect: '/app',
-                          failureRedirect: '/login' }),
-  function(req, res) {
-});
-
-app.get('/create-account', function(req, res) {
-  res.render('create_account.ejs');
-});
-
-app.post('/create-account', function(req, res) {
-  console.log('posted', req.body);
-  res.send('good job');
-});
+// The routes for the authentication stuff goes in this separate route file.
+app.use(require('./account-routes.js')(passport));
 
 // All routes after this point require authentication
-
 app.use(function(req, res, next) {
   var isAuthed = req.isAuthenticated();
   console.log('authentication middleware - is authed?', isAuthed);
@@ -61,6 +50,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+// The react app will go here
 app.get('/app', function(req, res) {
   passport.authenticate('local');
   res.render('app.ejs');

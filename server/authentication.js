@@ -1,18 +1,16 @@
 var PassportLocalStrategy = require('passport-local').Strategy;
+var datasource = require('./datasource.js');
 
 module.exports = function(passport) {
 
   passport.serializeUser(function(user, done) {
-    console.log('serialize user');
-    done(null, 7);
+    console.log('serialize user', user);
+    done(null, user);
   });
 
-  passport.deserializeUser(function(id, done) {
-    console.log('deserialize user');
-    done(null, { name: 'bob' })
-    //User.findById(id, function(err, user) {
-    //  done(err, user);
-    //});
+  passport.deserializeUser(function(user, done) {
+    console.log('deserialize user', user);
+    done(null, user);
   });
 
 
@@ -25,13 +23,30 @@ module.exports = function(passport) {
     },
     function(req, username, password, done) {
       console.log('local strategery', username, password);
-      if (username == "test" && password == "test") {
-        done(null, 'hello');
+
+      var success = function(user) {
+        done(null, user);
       }
-      else {
+
+      var failure = function() {
         done(null, false, { message: 'Invalid login' });
       }
+
+      datasource.validateLogin(username, password, success, failure);
     }
   ));
+
+  passport.use('local-create-account',
+    new PassportLocalStrategy({
+      usernameField : 'email',
+      passwordField : 'password',
+      passReqToCallback : true
+    },
+    function(req, email, password, done) {
+      console.log('local-create-account happening');
+      datasource.createUser(email, password, function(user) {
+        done(null, user);
+      });
+    }));
 
 }
