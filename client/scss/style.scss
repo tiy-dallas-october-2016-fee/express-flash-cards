@@ -11,3 +11,10 @@ h1 {
 p {
   font-family: georgia, serif;
 }
+
+@import 'header';
+@import 'footer';
+
+.main-content {
+  padding: 10px;
+}
