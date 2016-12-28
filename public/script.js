@@ -1,37 +1,28 @@
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+if (window.FC === undefined) {
+  window.FC = {};
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+(function () {
+  console.log('RR', window.ReactRouter);
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+  var mountNode = document.querySelector('#react-root');
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  var Router = ReactRouter.Router;
+  var Route = ReactRouter.Route;
 
-var mountNode = document.querySelector('#react-root');
+  var router = React.createElement(
+    Router,
+    { history: ReactRouter.hashHistory },
+    React.createElement(
+      Route,
+      { path: '/', component: FC.AppComponent },
+      React.createElement(ReactRouter.IndexRoute, { component: FC.SetList }),
+      React.createElement(Route, { path: '/cardlist', component: FC.CardList })
+    )
+  );
 
-var AppComponent = function (_React$Component) {
-  _inherits(AppComponent, _React$Component);
-
-  function AppComponent() {
-    _classCallCheck(this, AppComponent);
-
-    return _possibleConstructorReturn(this, (AppComponent.__proto__ || Object.getPrototypeOf(AppComponent)).apply(this, arguments));
-  }
-
-  _createClass(AppComponent, [{
-    key: 'render',
-    value: function render() {
-      return React.createElement(
-        'div',
-        null,
-        'React works!'
-      );
-    }
-  }]);
-
-  return AppComponent;
-}(React.Component);
-
-ReactDOM.render(React.createElement(AppComponent, null), mountNode);
+  ReactDOM.render(router, mountNode);
+})();
 //# sourceMappingURL=script.js.map

@@ -1,9 +1,21 @@
-var mountNode = document.querySelector('#react-root');
+if (window.FC === undefined) { window.FC = {}; }
 
-class AppComponent extends React.Component {
-  render() {
-    return <div>React works!</div>;
-  }
-}
+(function() {
+  console.log('RR', window.ReactRouter);
 
-ReactDOM.render(<AppComponent />, mountNode);
+
+  var mountNode = document.querySelector('#react-root');
+
+  var Router = ReactRouter.Router;
+  var Route = ReactRouter.Route;
+
+  var router = <Router history={ReactRouter.hashHistory}>
+      <Route path="/" component={FC.AppComponent}>
+        <ReactRouter.IndexRoute component={FC.SetList} />
+        <Route path="/cardlist" component={FC.CardList} />
+      </Route>
+    </Router>;
+
+
+  ReactDOM.render(router, mountNode);
+})();
