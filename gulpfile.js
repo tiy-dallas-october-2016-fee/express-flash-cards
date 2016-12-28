@@ -3,8 +3,10 @@ var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var babel = require('gulp-babel');
 var nodemon = require('gulp-nodemon');
+var shell = require('gulp-shell');
 
 gulp.task('default', ['sass', 'sass:watch', 'babel', 'babel:watch', 'start']);
+gulp.task('no-restart', ['sass', 'sass:watch', 'babel', 'babel:watch', 'server']);
 
 gulp.task('sass', function () {
   //wildcard search for files
@@ -43,3 +45,8 @@ gulp.task('start', function () {
     env: { 'NODE_ENV': 'development' }
   })
 });
+
+gulp.task('server', shell.task([
+  'echo Running node',
+  'node server/server.js'
+]))
