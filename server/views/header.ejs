@@ -8,9 +8,14 @@
   <body>
     <header>
       <h1>A Flash Card App</h1>
-      <% if (isAuthenticated) { %>
-      <div class="logout"><a href="/logout">logout</a></div>
-      <% } %>
+
+      <nav>
+        <ul>
+          <% if (isAuthenticated) { %>
+          <li class="logout"><a href="/logout">logout</a></li>
+          <% } %>
+        </ul>
+      </nav>
 
     </header>
     <div class="main-content">
