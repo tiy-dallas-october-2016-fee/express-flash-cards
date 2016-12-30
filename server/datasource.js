@@ -1,19 +1,23 @@
+function generateRandomId() {
+  return Math.ceil(Math.random() * 1000000);
+}
 
-
-var nextUserId = 1;
 var users = {};
+
+var setsByUserId = {};
 
 module.exports = {
 
   createUser: function(email, password, done) {
+    var userId = generateRandomId();
+
     var user = {
-      id: nextUserId,
+      id: userId,
       email: email,
       password: password
     };
 
-    users[nextUserId] = user;
-    nextUserId += 1;
+    users[userId] = user;
     done(user);
     console.log('users stored in memory', users);
   },
@@ -34,6 +38,31 @@ module.exports = {
 
   getUserById: function(id, done) {
     console.log('id', id, 'users?', users);
-    done(users[Number(id)]);
+    done(users[id]);
+  },
+
+  getSetsForUser: function(userId, done) {
+    console.log('getSetsForUser id', userId);
+
+    done(setsByUserId[userId]);
+  },
+
+  createSetForUser: function(userId, name, description, done) {
+
+    var userSets = setsByUserId[userId] || {};
+
+    var setId = generateRandomId();
+    var set = {
+      id: setId,
+      name: name,
+      description: description,
+      cards: []
+    }
+    userSets[setId] = set;
+    setsByUserId[userId] = userSets;
+    console.log('setsByUserId after change', setsByUserId);
+
+    done(set);
   }
+
 }

@@ -19,7 +19,8 @@ if (window.FC === undefined) {
       Route,
       { path: '/', component: FC.AppComponent },
       React.createElement(ReactRouter.IndexRoute, { component: FC.SetList }),
-      React.createElement(Route, { path: '/cardlist', component: FC.CardList })
+      React.createElement(Route, { path: '/cardlist', component: FC.CardList }),
+      React.createElement(Route, { path: '/create-set', component: FC.SetEditor })
     )
   );
 

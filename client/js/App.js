@@ -6,9 +6,6 @@ if (window.FC === undefined) { window.FC = {}; }
     render() {
       return <div>
 
-        <p>This is the app component</p>
-
-
         {this.props.children}
 
       </div>;

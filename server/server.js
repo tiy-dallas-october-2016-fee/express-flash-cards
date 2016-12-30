@@ -52,12 +52,15 @@ app.use(function(req, res, next) {
   next();
 });
 
+// These are all the routes for the API.
+app.use(require('./api-routes.js')());
+
 // The react app will go here
 app.get('/app', function(req, res) {
   passport.authenticate('local');
   res.render('app.ejs');
 });
 
-app.listen(5001, function() {
+app.listen(5002, function() {
   console.log('listening on port 5000.');
 });

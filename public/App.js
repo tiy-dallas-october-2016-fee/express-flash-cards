@@ -28,11 +28,6 @@ if (window.FC === undefined) {
         return React.createElement(
           "div",
           null,
-          React.createElement(
-            "p",
-            null,
-            "This is the app component"
-          ),
           this.props.children
         );
       }

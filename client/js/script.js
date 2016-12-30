@@ -13,6 +13,7 @@ if (window.FC === undefined) { window.FC = {}; }
       <Route path="/" component={FC.AppComponent}>
         <ReactRouter.IndexRoute component={FC.SetList} />
         <Route path="/cardlist" component={FC.CardList} />
+        <Route path="/create-set" component={FC.SetEditor} />
       </Route>
     </Router>;
 

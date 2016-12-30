@@ -28,6 +28,7 @@ gulp.task('babel', function() {
       .pipe(babel({
           presets: ['es2015', 'react'] // only es2015 preset now. React later.
       }))
+      .on('error', console.error.bind(console))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest('public'));
 });

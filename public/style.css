@@ -51,8 +51,18 @@ body {
 h1 {
   font-size: 1.6em; }
 
+h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 1em 0; }
+
 p {
-  font-family: georgia, serif; }
+  font-family: georgia, serif;
+  margin: 10px 0; }
+
+form input {
+  margin: 10px 0;
+  padding: 5px; }
 
 header {
   background-color: #000;
@@ -80,12 +90,31 @@ footer {
   right: 0; }
 
 .main-content {
-  padding: 10px; }
+  padding: 10px 10px 50px 10px; }
 
 .card-list {
   border: solid 1px blue; }
 
-.set-list {
-  border: solid 1px red; }
+.set-list .set {
+  border: solid 1px #000;
+  margin: 10px 0;
+  max-width: 400px;
+  padding: 10px; }
+
+.set-list .set-name {
+  float: left;
+  font-weight: bold;
+  margin-bottom: 10px; }
+
+.set-list p {
+  clear: both; }
+
+.set-list .number-of-cards {
+  color: #888;
+  float: right;
+  text-align: right; }
+
+.set-editor input {
+  display: block; }
 
 /*# sourceMappingURL=style.css.map */
