@@ -43,7 +43,6 @@ if (window.FC === undefined) { window.FC = {}; }
         }
       })
       .done((data) => {
-        console.log('post result', data);
         var set = userData.sets.find((x) => { return x.id == setId});
         set.cards.push(data);
         cb(data);

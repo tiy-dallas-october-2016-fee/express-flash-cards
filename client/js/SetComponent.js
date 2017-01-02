@@ -15,7 +15,6 @@ if (window.FC === undefined) { window.FC = {}; }
 
     componentDidMount() {
       var cb = (set) => {
-        console.log(set);
         this.setState({
           name: set.name,
           cards: set.cards
@@ -26,7 +25,6 @@ if (window.FC === undefined) { window.FC = {}; }
     }
 
     render() {
-      console.log('rendering SetComponent')
 
       var cardList;
       if (this.state.cards.length === 0) {

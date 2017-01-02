@@ -46,7 +46,6 @@ if (window.FC === undefined) {
           back: back
         }
       }).done(function (data) {
-        console.log('post result', data);
         var set = userData.sets.find(function (x) {
           return x.id == setId;
         });

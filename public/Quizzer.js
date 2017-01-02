@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -29,16 +29,14 @@ if (window.FC === undefined) {
     }
 
     _createClass(Quizzer, [{
-      key: 'componentDidMount',
+      key: "componentDidMount",
       value: function componentDidMount() {
         var _this2 = this;
 
         var cb = function cb(set) {
-          console.log('callback', set);
 
           // copy and shuffle array
           var shuffledCards = _.shuffle(set.cards.splice(0));
-          console.log('shuffled', shuffledCards);
 
           _this2.setState({
             cards: shuffledCards,
@@ -50,19 +48,16 @@ if (window.FC === undefined) {
         FC.UserData.getSet(this.props.params.setId, cb);
       }
     }, {
-      key: 'cardClicked',
+      key: "cardClicked",
       value: function cardClicked() {
-        console.log('clickin that card');
-
         var copiedState = Object.assign({}, this.state);
         copiedState.showFront = !copiedState.showFront;
 
         this.setState(copiedState);
       }
     }, {
-      key: 'markCorrect',
+      key: "markCorrect",
       value: function markCorrect() {
-        console.log('correct!');
 
         var currentPosition = this.state.currentCard;
         if (currentPosition + 1 >= this.state.cards.length) {
@@ -75,15 +70,14 @@ if (window.FC === undefined) {
         this.setState(copiedState);
       }
     }, {
-      key: 'markIncorrect',
+      key: "markIncorrect",
       value: function markIncorrect() {
-        console.log('incorrect!');
         var copiedState = Object.assign({}, this.state);
         copiedState.currentCard += 1;
         this.setState(copiedState);
       }
     }, {
-      key: 'render',
+      key: "render",
       value: function render() {
         var _this3 = this;
 
@@ -94,18 +88,18 @@ if (window.FC === undefined) {
           var textToShow = this.state.showFront ? currentCard.front : currentCard.back;
 
           cardShower = React.createElement(
-            'div',
+            "div",
             null,
             React.createElement(
-              'div',
+              "div",
               null,
-              'Card count: ',
+              "Card count: ",
               this.state.cards.length
             ),
             React.createElement(
-              'div',
+              "div",
               {
-                className: 'card',
+                className: "card",
                 onClick: function onClick(evt) {
                   _this3.cardClicked(evt);
                 } },
@@ -114,29 +108,29 @@ if (window.FC === undefined) {
           );
 
           cardNavigation = React.createElement(
-            'div',
-            { className: 'card-navigation' },
+            "div",
+            { className: "card-navigation" },
             React.createElement(
-              'div',
-              { className: 'correct', onClick: function onClick() {
+              "div",
+              { className: "correct", onClick: function onClick() {
                   _this3.markCorrect();
                 } },
-              'Correct'
+              "Correct"
             ),
             React.createElement(
-              'div',
-              { className: 'incorrect', onClick: function onClick() {
+              "div",
+              { className: "incorrect", onClick: function onClick() {
                   _this3.markIncorrect();
                 } },
-              'Incorrect'
+              "Incorrect"
             )
           );
         }
 
         return React.createElement(
-          'div',
-          { className: 'quizzer' },
-          'The Quizzer',
+          "div",
+          { className: "quizzer" },
+          "The Quizzer",
           cardShower,
           cardNavigation
         );

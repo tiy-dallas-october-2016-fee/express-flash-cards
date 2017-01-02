@@ -13,7 +13,6 @@ if (window.FC === undefined) { window.FC = {}; }
     }
 
     componentDidMount() {
-      console.log('component did mount');
       this.loadSets();
     }
 
@@ -24,18 +23,15 @@ if (window.FC === undefined) { window.FC = {}; }
           sets: data.sets
         });
       });
-            
+
     }
 
     deleteSet(setId) {
-      console.log('deleting set');
-
       $.ajax({
         url: '/api/sets/' + setId,
         method: 'DELETE'
       })
       .done(() => {
-        console.log('done deleting');
         this.loadSets();
       });
     }
@@ -45,8 +41,6 @@ if (window.FC === undefined) { window.FC = {}; }
     }
 
     render() {
-      console.log('rendering set list', this.state.sets.length);
-
       var noSetsMessaging;
       if (this.state.sets.length === 0) {
         noSetsMessaging = <p>You do not have any sets! Create one.</p>

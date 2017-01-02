@@ -10,7 +10,6 @@ module.exports = function() {
   router.get('/api/sets', (req, res) => {
 
     datasource.getSetsForUser(req.user.id, (data) => {
-      console.log('data from datasource', data);
       //convert the output to an array
       var setArray = [];
       for (var key in data) {

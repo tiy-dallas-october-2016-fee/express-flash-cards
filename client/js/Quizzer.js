@@ -16,11 +16,9 @@ if (window.FC === undefined) { window.FC = {}; }
     componentDidMount() {
 
       var cb = (set) => {
-        console.log('callback', set);
 
         // copy and shuffle array
         var shuffledCards = _.shuffle(set.cards.splice(0));
-        console.log('shuffled', shuffledCards);
 
         this.setState({
           cards: shuffledCards,
@@ -34,8 +32,6 @@ if (window.FC === undefined) { window.FC = {}; }
     }
 
     cardClicked() {
-      console.log('clickin that card');
-
       var copiedState = Object.assign({}, this.state);
       copiedState.showFront = !copiedState.showFront;
 
@@ -43,7 +39,6 @@ if (window.FC === undefined) { window.FC = {}; }
     }
 
     markCorrect() {
-      console.log('correct!');
 
       var currentPosition = this.state.currentCard;
       if (currentPosition + 1 >= this.state.cards.length) {
@@ -57,7 +52,6 @@ if (window.FC === undefined) { window.FC = {}; }
     }
 
     markIncorrect() {
-      console.log('incorrect!');
       var copiedState = Object.assign({}, this.state);
       copiedState.currentCard += 1;
       this.setState(copiedState);

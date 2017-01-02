@@ -19,31 +19,25 @@ module.exports = {
 
     users[userId] = user;
     done(user);
-    console.log('users stored in memory', users);
   },
 
   validateLogin: function(email, password, success, failure) {
     for (var key in users) {
       var user = users[key];
       if (user.email === email && user.password === password) {
-        console.log('validated user', email);
         success(user);
       }
       else {
-        console.log('no valid user with the email', email);
         failure();
       }
     }
   },
 
   getUserById: function(id, done) {
-    console.log('id', id, 'users?', users);
     done(users[id]);
   },
 
   getSetsForUser: function(userId, done) {
-    console.log('getSetsForUser id', userId);
-
     done(setsByUserId[userId]);
   },
 
@@ -60,7 +54,6 @@ module.exports = {
     }
     userSets[setId] = set;
     setsByUserId[userId] = userSets;
-    console.log('setsByUserId after change', setsByUserId);
 
     done(set);
   },
@@ -69,7 +62,6 @@ module.exports = {
     var userSets = setsByUserId[userId] || {};
 
     delete userSets[setId];
-    console.log('this user deleted a set and now has', userSets);
     done();
   },
 

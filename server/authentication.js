@@ -4,12 +4,10 @@ var datasource = require('./datasource.js');
 module.exports = function(passport) {
 
   passport.serializeUser(function(user, done) {
-    console.log('serialize user', user);
     done(null, user);
   });
 
   passport.deserializeUser(function(user, done) {
-    console.log('deserialize user', user);
     done(null, user);
   });
 
@@ -22,7 +20,6 @@ module.exports = function(passport) {
       passReqToCallback : true
     },
     function(req, username, password, done) {
-      console.log('local strategery', username, password);
 
       var success = function(user) {
         done(null, user);
@@ -43,7 +40,6 @@ module.exports = function(passport) {
       passReqToCallback : true
     },
     function(req, email, password, done) {
-      console.log('local-create-account happening');
       datasource.createUser(email, password, function(user) {
         done(null, user);
       });

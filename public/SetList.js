@@ -30,7 +30,6 @@ if (window.FC === undefined) {
     _createClass(SetList, [{
       key: 'componentDidMount',
       value: function componentDidMount() {
-        console.log('component did mount');
         this.loadSets();
       }
     }, {
@@ -49,13 +48,10 @@ if (window.FC === undefined) {
       value: function deleteSet(setId) {
         var _this3 = this;
 
-        console.log('deleting set');
-
         $.ajax({
           url: '/api/sets/' + setId,
           method: 'DELETE'
         }).done(function () {
-          console.log('done deleting');
           _this3.loadSets();
         });
       }
@@ -68,8 +64,6 @@ if (window.FC === undefined) {
       key: 'render',
       value: function render() {
         var _this4 = this;
-
-        console.log('rendering set list', this.state.sets.length);
 
         var noSetsMessaging;
         if (this.state.sets.length === 0) {

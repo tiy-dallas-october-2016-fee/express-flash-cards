@@ -1,8 +1,6 @@
 if (window.FC === undefined) { window.FC = {}; }
 
 (function() {
-  console.log('RR', window.ReactRouter);
-
 
   var mountNode = document.querySelector('#react-root');
 

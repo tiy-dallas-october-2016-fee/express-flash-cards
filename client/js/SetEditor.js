@@ -7,8 +7,6 @@ if (window.FC === undefined) { window.FC = {}; }
     submitSet(evt) {
       evt.preventDefault();
 
-      console.log('submitting yo', this.nameInput.value, this.descriptionInput.value);
-
       $.ajax({
         url: '/api/sets',
         method: 'POST',
@@ -18,7 +16,6 @@ if (window.FC === undefined) { window.FC = {}; }
         }
       })
       .done((data) => {
-        console.log('POST finished');
         ReactRouter.browserHistory.goBack();
       });
 

@@ -31,7 +31,6 @@ app.set('views', path.join(__dirname, '/views'));
 // In every view we need to know if they are authenticated for the header, so add to locals
 app.use(function(req, res, next) {
   res.locals.isAuthenticated = req.isAuthenticated();
-  console.log('locals', res.locals);
   next();
 });
 
@@ -43,7 +42,6 @@ app.use(require('./account-routes.js')(passport));
 // All routes after this point require authentication
 app.use(function(req, res, next) {
   var isAuthed = req.isAuthenticated();
-  console.log('authentication middleware - is authed?', isAuthed);
   if (!isAuthed) {
     res.redirect('/login');
     return;
