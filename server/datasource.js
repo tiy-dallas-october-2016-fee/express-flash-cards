@@ -63,6 +63,30 @@ module.exports = {
     console.log('setsByUserId after change', setsByUserId);
 
     done(set);
+  },
+
+  deleteSetForUser: function(userId, setId, done) {
+    var userSets = setsByUserId[userId] || {};
+
+    delete userSets[setId];
+    console.log('this user deleted a set and now has', userSets);
+    done();
+  },
+
+
+
+  newCard: function(userId, setId, front, back, cb) {
+    var userSets = setsByUserId[userId] || {};
+    var set = userSets[setId];
+
+    var card = {
+      id: generateRandomId(),
+      front: front,
+      back: back
+    };
+
+    set.cards.push(card);
+    cb(card);
   }
 
 }

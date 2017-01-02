@@ -30,22 +30,45 @@ if (window.FC === undefined) {
     _createClass(SetList, [{
       key: 'componentDidMount',
       value: function componentDidMount() {
+        console.log('component did mount');
+        this.loadSets();
+      }
+    }, {
+      key: 'loadSets',
+      value: function loadSets() {
         var _this2 = this;
 
-        console.log('component did mount');
-
-        $.ajax({
-          url: '/api/sets'
-        }).done(function (data) {
-          console.log('data back from get', data);
+        FC.UserData.loadSets(function (data) {
           _this2.setState({
             sets: data.sets
           });
         });
       }
     }, {
+      key: 'deleteSet',
+      value: function deleteSet(setId) {
+        var _this3 = this;
+
+        console.log('deleting set');
+
+        $.ajax({
+          url: '/api/sets/' + setId,
+          method: 'DELETE'
+        }).done(function () {
+          console.log('done deleting');
+          _this3.loadSets();
+        });
+      }
+    }, {
+      key: 'addCards',
+      value: function addCards(setId) {
+        ReactRouter.hashHistory.push('/set/' + setId);
+      }
+    }, {
       key: 'render',
       value: function render() {
+        var _this4 = this;
+
         console.log('rendering set list', this.state.sets.length);
 
         var noSetsMessaging;
@@ -93,6 +116,20 @@ if (window.FC === undefined) {
                   'p',
                   null,
                   set.description
+                ),
+                React.createElement(
+                  'div',
+                  { className: 'delete-set', onClick: function onClick() {
+                      _this4.deleteSet(set.id);
+                    } },
+                  'delete'
+                ),
+                React.createElement(
+                  'div',
+                  { className: 'add-cards', onClick: function onClick() {
+                      _this4.addCards(set.id);
+                    } },
+                  'add cards'
                 )
               );
             })

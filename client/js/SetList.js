@@ -14,17 +14,34 @@ if (window.FC === undefined) { window.FC = {}; }
 
     componentDidMount() {
       console.log('component did mount');
+      this.loadSets();
+    }
 
-      $.ajax({
-        url: '/api/sets'
-      })
-      .done((data) => {
-        console.log('data back from get', data);
+    loadSets() {
+
+      FC.UserData.loadSets((data) => {
         this.setState({
           sets: data.sets
         });
       });
+            
+    }
 
+    deleteSet(setId) {
+      console.log('deleting set');
+
+      $.ajax({
+        url: '/api/sets/' + setId,
+        method: 'DELETE'
+      })
+      .done(() => {
+        console.log('done deleting');
+        this.loadSets();
+      });
+    }
+
+    addCards(setId) {
+      ReactRouter.hashHistory.push('/set/' + setId);
     }
 
     render() {
@@ -48,6 +65,9 @@ if (window.FC === undefined) { window.FC = {}; }
             <div className="set-name">{set.name}</div>
             <div className="number-of-cards"># of cards: {set.cards.length}</div>
             <p>{set.description}</p>
+
+            <div className="delete-set" onClick={() => {this.deleteSet(set.id)}}>delete</div>
+            <div className="add-cards" onClick={() => {this.addCards(set.id)}}>add cards</div>
 
           </li>
         })}

@@ -61,6 +61,8 @@ app.get('/app', function(req, res) {
   res.render('app.ejs');
 });
 
-app.listen(5002, function() {
-  console.log('listening on port 5000.');
+var port = process.env.PORT || 5003;
+
+app.listen(port, function() {
+  console.log('listening on port', port);
 });

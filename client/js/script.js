@@ -14,6 +14,8 @@ if (window.FC === undefined) { window.FC = {}; }
         <ReactRouter.IndexRoute component={FC.SetList} />
         <Route path="/cardlist" component={FC.CardList} />
         <Route path="/create-set" component={FC.SetEditor} />
+        <Route path="/set/:setId" component={FC.SetComponent} />
+        <Route path="/set/:setId/newcard" component={FC.CardEditor} />
       </Route>
     </Router>;
 
