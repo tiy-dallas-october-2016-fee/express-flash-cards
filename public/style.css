@@ -138,4 +138,13 @@ footer {
 .set-component .front {
   margin: 5px 0; }
 
+.quizzer .card {
+  border: solid 1px #000;
+  max-width: 300px;
+  padding: 100px; }
+
+.quizzer .card-navigation div {
+  display: inline-block;
+  padding: 10px; }
+
 /*# sourceMappingURL=style.css.map */
