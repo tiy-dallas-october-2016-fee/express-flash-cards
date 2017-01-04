@@ -1,17 +1,18 @@
 <%- include('header'); %>
+  <div class="login">
+    <h1>Login!</h1>
 
-  <h1>Login!</h1>
+    <form method="POST" action="login">
 
-  <form method="POST" action="login">
+      <input name="email" placeholder="email"></input>
 
-    <input name="email"></input>
+      <input name="password" placeholder="password"></input>
 
-    <input name="password"></input>
+      <button>login</button>
 
-    <button>create account</button>
+    </form>
 
-  </form>
-
-  <p>Or, <a href="/create-account">register for a new account</a>.</p>
+    <p>Or, <a href="/create-account">register for a new account</a>.</p>
+  </div>
 
 <%- include('footer'); %>
