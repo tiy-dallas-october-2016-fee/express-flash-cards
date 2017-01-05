@@ -120,13 +120,14 @@ footer {
   float: right;
   text-align: right; }
 
-.set-list .delete-set {
-  background-color: red;
+.set-list .delete-set, .set-list .add-cards {
+  background-color: black;
   color: white;
   display: inline-block;
+  margin: 5px;
   padding: 10px; }
 
-.set-list .delete-set:hover {
+.set-list .delete-set:hover, .set-list .add-cards:hover {
   color: #DDD; }
 
 .set-editor input {

@@ -23,14 +23,15 @@
     text-align: right;
   }
 
-  .delete-set {
-    background-color: red;
+  .delete-set, .add-cards {
+    background-color: black;
     color: white;
     display: inline-block;
+    margin: 5px;
     padding: 10px;
   }
 
-  .delete-set:hover {
+  .delete-set:hover, .add-cards:hover {
     color: #DDD;
   }
 }
