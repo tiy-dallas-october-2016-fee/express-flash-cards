@@ -23,7 +23,7 @@
     text-align: right;
   }
 
-  .delete-set, .add-cards {
+  .button {
     background-color: black;
     color: white;
     display: inline-block;
@@ -31,7 +31,7 @@
     padding: 10px;
   }
 
-  .delete-set:hover, .add-cards:hover {
+  .button:hover {
     color: #DDD;
   }
 }

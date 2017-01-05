@@ -61,6 +61,11 @@ if (window.FC === undefined) {
         ReactRouter.hashHistory.push('/set/' + setId);
       }
     }, {
+      key: 'navigateToQuiz',
+      value: function navigateToQuiz(setId) {
+        ReactRouter.hashHistory.push('/set/' + setId + '/quizzer');
+      }
+    }, {
       key: 'render',
       value: function render() {
         var _this4 = this;
@@ -113,17 +118,24 @@ if (window.FC === undefined) {
                 ),
                 React.createElement(
                   'div',
-                  { className: 'delete-set', onClick: function onClick() {
+                  { className: 'button delete-set', onClick: function onClick() {
                       _this4.deleteSet(set.id);
                     } },
                   'delete'
                 ),
                 React.createElement(
                   'div',
-                  { className: 'add-cards', onClick: function onClick() {
+                  { className: 'button add-cards', onClick: function onClick() {
                       _this4.addCards(set.id);
                     } },
                   'add cards'
+                ),
+                React.createElement(
+                  'div',
+                  { className: 'button quiz', onClick: function onClick() {
+                      _this4.navigateToQuiz(set.id);
+                    } },
+                  'quiz'
                 )
               );
             })

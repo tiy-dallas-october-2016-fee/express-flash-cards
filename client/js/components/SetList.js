@@ -40,6 +40,10 @@ if (window.FC === undefined) { window.FC = {}; }
       ReactRouter.hashHistory.push('/set/' + setId);
     }
 
+    navigateToQuiz(setId) {
+      ReactRouter.hashHistory.push('/set/' + setId + '/quizzer');
+    }
+
     render() {
       var noSetsMessaging;
       if (this.state.sets.length === 0) {
@@ -60,8 +64,9 @@ if (window.FC === undefined) { window.FC = {}; }
             <div className="number-of-cards"># of cards: {set.cards.length}</div>
             <p>{set.description}</p>
 
-            <div className="delete-set" onClick={() => {this.deleteSet(set.id)}}>delete</div>
-            <div className="add-cards" onClick={() => {this.addCards(set.id)}}>add cards</div>
+            <div className="button delete-set" onClick={() => {this.deleteSet(set.id)}}>delete</div>
+            <div className="button add-cards" onClick={() => {this.addCards(set.id)}}>add cards</div>
+            <div className="button quiz" onClick={() => {this.navigateToQuiz(set.id)}}>quiz</div>
 
           </li>
         })}

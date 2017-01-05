@@ -124,14 +124,14 @@ footer {
   float: right;
   text-align: right; }
 
-.set-list .delete-set, .set-list .add-cards {
+.set-list .button {
   background-color: black;
   color: white;
   display: inline-block;
   margin: 5px;
   padding: 10px; }
 
-.set-list .delete-set:hover, .set-list .add-cards:hover {
+.set-list .button:hover {
   color: #DDD; }
 
 .set-editor input {
