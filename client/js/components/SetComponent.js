@@ -59,6 +59,6 @@ if (window.FC === undefined) { window.FC = {}; }
 
   }
 
-  window.FC.SetComponent = SetComponent;
+  FC.SetComponent = SetComponent;
 
 })();

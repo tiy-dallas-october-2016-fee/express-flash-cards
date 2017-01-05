@@ -98,6 +98,10 @@ footer {
 .create-account input {
   display: block; }
 
+.card-editor input {
+  display: block;
+  margin: 20px 0; }
+
 .card-list {
   border: solid 1px blue; }
 
@@ -144,6 +148,9 @@ footer {
 
 .set-component .front {
   margin: 5px 0; }
+
+.set-component .controls li {
+  margin: 10px 0; }
 
 .quizzer .card {
   border: solid 1px #000;

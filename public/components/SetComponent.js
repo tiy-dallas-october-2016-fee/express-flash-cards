@@ -124,6 +124,6 @@ if (window.FC === undefined) {
     return SetComponent;
   }(React.Component);
 
-  window.FC.SetComponent = SetComponent;
+  FC.SetComponent = SetComponent;
 })();
 //# sourceMappingURL=SetComponent.js.map
