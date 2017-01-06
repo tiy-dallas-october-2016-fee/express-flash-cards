@@ -1,5 +1,6 @@
 var PassportLocalStrategy = require('passport-local').Strategy;
 var datasource = require('./datasource.js');
+var User = require('./models/user');
 
 module.exports = function(passport) {
 
@@ -40,9 +41,19 @@ module.exports = function(passport) {
       passReqToCallback : true
     },
     function(req, email, password, done) {
-      datasource.createUser(email, password, function(user) {
+
+      var newUser = new User({
+        email: email,
+        password: password
+      });
+      newUser.save(function(err, user) {
+        console.log('done saving', arguments);
         done(null, user);
       });
+
+      // datasource.createUser(email, password, function(user) {
+      //   done(null, user);
+      // });
     }));
 
 }

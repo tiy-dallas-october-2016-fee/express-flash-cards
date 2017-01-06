@@ -3,6 +3,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var session = require('express-session');
+var mongoose = require('mongoose');
+var User = require('./models/user');
 
 var app = express();
 app.use(express.static('public'));
@@ -15,7 +17,7 @@ app.use(passport.initialize()); // Sets up passport middleware
 app.use(passport.session()); // For persistent auth, we need sessions
 require('./authentication.js')(passport); // Where the authentication configuration is
 
-
+mongoose.connect('mongodb://localhost:28017/test')
 
 
 
@@ -26,6 +28,27 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
 // Since we have our "views" directory in our server directory, have to configure
 app.set('views', path.join(__dirname, '/views'));
+
+
+
+
+
+
+
+
+
+app.get('/api/users', function(req, res) {
+  User.find()
+    .exec(function(err, users) {
+      res.send(users);
+    });
+});
+
+
+
+
+
+
 
 
 // In every view we need to know if they are authenticated for the header, so add to locals
@@ -58,6 +81,7 @@ app.get('/app', function(req, res) {
   passport.authenticate('local');
   res.render('app.ejs');
 });
+
 
 var port = process.env.PORT || 5003;
 
