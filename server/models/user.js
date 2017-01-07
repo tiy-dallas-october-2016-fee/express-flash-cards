@@ -9,8 +9,8 @@ var schema = mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-schema.methods.checkPassword = (guess, done) => {
-  bcrypt.compare(guess, this.password, function(err, isMatch) {
+schema.methods.checkPassword = (guess, actual, done) => {
+  bcrypt.compare(guess, actual, function(err, isMatch) {
     done(err, isMatch);
   });
 };

@@ -1,15 +1,21 @@
 var PassportLocalStrategy = require('passport-local').Strategy;
 var datasource = require('./datasource.js');
 var User = require('./models/user');
+var mongoose = require('mongoose');
 
 module.exports = function(passport) {
 
   passport.serializeUser(function(user, done) {
-    done(null, user);
+    done(null, user._id);
   });
 
-  passport.deserializeUser(function(user, done) {
-    done(null, user);
+  passport.deserializeUser(function(id, done) {
+
+    var objectId = mongoose.Types.ObjectId(id);
+
+    User.findById(objectId, function(err, user) {
+      done(null, user);
+    });
   });
 
 
@@ -20,7 +26,7 @@ module.exports = function(passport) {
       passwordField : 'password',
       passReqToCallback : true
     },
-    function(req, username, password, done) {
+    function(req, email, password, done) {
 
       var success = function(user) {
         done(null, user);
@@ -30,7 +36,23 @@ module.exports = function(passport) {
         done(null, false, { message: 'Invalid login' });
       }
 
-      datasource.validateLogin(username, password, success, failure);
+      User.findOne({email: email}, (err, user) => {
+        if (err) { return done(err); }
+        if (!user) {
+          return done(null, false, null);
+        }
+
+        user.checkPassword(password, user.password, function(err, isMatch) {
+          if (err) { return done(err); }
+          if (isMatch) {
+            return done(null, user);
+          } else {
+            return done(null, false, null);
+          }
+        });
+      });
+
+      // datasource.validateLogin(username, password, success, failure);
     }
   ));
 
@@ -47,13 +69,8 @@ module.exports = function(passport) {
         password: password
       });
       newUser.save(function(err, user) {
-        console.log('done saving', arguments);
         done(null, user);
       });
-
-      // datasource.createUser(email, password, function(user) {
-      //   done(null, user);
-      // });
     }));
 
 }
