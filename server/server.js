@@ -37,10 +37,20 @@ app.set('views', path.join(__dirname, '/views'));
 
 
 
-app.get('/api/users', function(req, res) {
+app.get('/api/raw/users', function(req, res) {
   User.find()
     .exec(function(err, users) {
       res.send(users);
+    });
+});
+
+var Set = require('./models/set');
+app.get('/api/raw/sets', function(req, res) {
+  Set.find({
+      //userId: '586ece2acc884f41be4ffbf0'
+    })
+    .exec(function(err, sets) {
+      res.send(sets);
     });
 });
 

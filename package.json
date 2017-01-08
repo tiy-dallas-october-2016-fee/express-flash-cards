@@ -11,6 +11,7 @@
     "express-session": "^1.14.2",
     "gulp-shell": "^0.5.2",
     "mongoose": "4.7.2",
+    "node-uuid": "^1.4.7",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0"
   },

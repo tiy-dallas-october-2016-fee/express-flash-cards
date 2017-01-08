@@ -70,6 +70,8 @@ if (window.FC === undefined) {
       value: function render() {
         var _this4 = this;
 
+        console.log('SetList.render', this.state);
+
         var noSetsMessaging;
         if (this.state.sets.length === 0) {
           noSetsMessaging = React.createElement(
@@ -96,10 +98,10 @@ if (window.FC === undefined) {
           React.createElement(
             'ul',
             null,
-            this.state.sets.map(function (set) {
+            this.state.sets.map(function (set, index) {
               return React.createElement(
                 'li',
-                { className: 'set', key: set.id },
+                { key: set.id, className: 'set' },
                 React.createElement(
                   'div',
                   { className: 'set-name' },

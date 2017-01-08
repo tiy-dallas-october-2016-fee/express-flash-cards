@@ -38,7 +38,7 @@ if (window.FC === undefined) {
     addCardToSet: function addCardToSet(setId, front, back, cb) {
 
       $.ajax({
-        url: '/api/sets/:setId/card',
+        url: '/api/sets/' + setId + '/card',
         method: 'POST',
         data: {
           setId: setId,
@@ -46,11 +46,12 @@ if (window.FC === undefined) {
           back: back
         }
       }).done(function (data) {
-        var set = userData.sets.find(function (x) {
-          return x.id == setId;
-        });
-        set.cards.push(data);
-        cb(data);
+        // console.log('got back', data);
+        // var set = userData.sets.find((x) => { return x.id == setId});
+        // set.cards.push({
+        //
+        // });
+        FC.UserData.loadSets(cb);
       });
     }
   };

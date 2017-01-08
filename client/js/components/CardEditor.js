@@ -7,7 +7,7 @@ if (window.FC === undefined) { window.FC = {}; }
     submitCard(evt) {
       evt.preventDefault();
 
-      var cb = (data) => {
+      var cb = () => {
         ReactRouter.browserHistory.goBack();
       };
 

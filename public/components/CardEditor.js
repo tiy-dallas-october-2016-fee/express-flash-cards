@@ -27,7 +27,7 @@ if (window.FC === undefined) {
       value: function submitCard(evt) {
         evt.preventDefault();
 
-        var cb = function cb(data) {
+        var cb = function cb() {
           ReactRouter.browserHistory.goBack();
         };
 

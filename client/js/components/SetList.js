@@ -45,6 +45,8 @@ if (window.FC === undefined) { window.FC = {}; }
     }
 
     render() {
+      console.log('SetList.render', this.state);
+
       var noSetsMessaging;
       if (this.state.sets.length === 0) {
         noSetsMessaging = <p>You do not have any sets! Create one.</p>
@@ -58,8 +60,8 @@ if (window.FC === undefined) { window.FC = {}; }
         <ReactRouter.Link to="/create-set">Create new set</ReactRouter.Link>
 
         <ul>
-        {this.state.sets.map((set) => {
-          return <li className="set" key={set.id}>
+        {this.state.sets.map((set, index) => {
+          return <li key={set.id} className="set">
             <div className="set-name">{set.name}</div>
             <div className="number-of-cards"># of cards: {set.cards.length}</div>
             <p>{set.description}</p>

@@ -1,6 +1,7 @@
 var express = require('express');
 var datasource = require('./datasource.js');
-
+var uuid = require('node-uuid');
+var Set = require('./models/set');
 
 module.exports = function() {
 
@@ -9,17 +10,33 @@ module.exports = function() {
 
   router.get('/api/sets', (req, res) => {
 
-    datasource.getSetsForUser(req.user.id, (data) => {
-      //convert the output to an array
-      var setArray = [];
-      for (var key in data) {
-        setArray.push(data[key]);
-      }
+    console.log('get /api/sets', req.user.id);
 
-      res.send({
-        userId: req.user.id,
-        sets: setArray
-      });
+    Set.find({
+        userId: req.user.id
+      })
+      .exec((err, data) => {
+        console.log('find result', err, data);
+
+        //convert the output to an array
+        var setArray = [];
+        for (var key in data) {
+          var set = {
+            id: data[key]._id,
+            userId: data[key].userId,
+            description: data[key].description,
+            name: data[key].name,
+            cards: data[key].cards
+          };
+          setArray.push(set);
+        }
+
+        console.log('going to send', setArray);
+
+        res.send({
+          userId: req.user.id,
+          sets: setArray
+        });
     });
 
   });
@@ -27,27 +44,49 @@ module.exports = function() {
   router.post('/api/sets', (req, res) => {
 
     var cb = (data) => {
+      console.log('done saving set', data);
       res.send(data);
     };
 
-    datasource.createSetForUser(req.user.id, req.body.name, req.body.description, cb);
+    var set = new Set();
+    set.name = req.body.name;
+    set.description = req.body.description;
+    set.cards = [];
+    set.userId = req.user.id;
+    set.save(cb);
 
   });
 
   router.delete('/api/sets/:setId', (req, res) => {
-    var cb = (data) => {
+    var cb = (err, data) => {
+      console.log('done removing', err, data);
       res.sendStatus(204);
     };
 
-    datasource.deleteSetForUser(req.user.id, req.params.setId, cb);
+    Set.findByIdAndRemove(req.params.setId, cb);
   });
 
   router.post('/api/sets/:setId/card', (req, res) => {
-    var cb = (data) => {
+    var cb = (err, data) => {
+      console.log('add card, err, data', err, data);
       res.send(data);
     }
 
-    datasource.newCard(req.user.id, req.body.setId, req.body.front, req.body.back, cb);
+    console.log('updating set', req.params.setId, 'maybe');
+
+    var card = {
+      id: uuid.v4(),
+      front: req.body.front,
+      back: req.body.back,
+      correctCount: 0,
+      incorrectCount: 0
+    };
+
+    Set.findByIdAndUpdate(
+      req.params.setId,
+      {$push: {"cards": card }},
+      {safe: true, upsert: true},
+      cb);
   });
 
   return router;
