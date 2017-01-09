@@ -11,7 +11,9 @@ app.use(express.static('public'));
 
 // Setup session and auth
 app.use(session({
-  secret: 'wearing pants'
+  secret: 'wearing pants',
+  resave: false,
+  saveUninitialized: true
 }));
 app.use(passport.initialize()); // Sets up passport middleware
 app.use(passport.session()); // For persistent auth, we need sessions
