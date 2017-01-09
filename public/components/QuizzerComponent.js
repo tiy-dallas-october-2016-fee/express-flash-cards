@@ -150,4 +150,4 @@ if (window.FC === undefined) {
 
   FC.QuizzerComponent = QuizzerComponent;
 })();
-//# sourceMappingURL=Quizzer.js.map
+//# sourceMappingURL=QuizzerComponent.js.map

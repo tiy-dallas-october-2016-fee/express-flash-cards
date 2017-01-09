@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -13,68 +13,63 @@ if (window.FC === undefined) {
 }
 
 (function () {
-  var SetEditorComponent = function (_React$Component) {
-    _inherits(SetEditorComponent, _React$Component);
+  var CardEditorComponent = function (_React$Component) {
+    _inherits(CardEditorComponent, _React$Component);
 
-    function SetEditorComponent() {
-      _classCallCheck(this, SetEditorComponent);
+    function CardEditorComponent() {
+      _classCallCheck(this, CardEditorComponent);
 
-      return _possibleConstructorReturn(this, (SetEditorComponent.__proto__ || Object.getPrototypeOf(SetEditorComponent)).apply(this, arguments));
+      return _possibleConstructorReturn(this, (CardEditorComponent.__proto__ || Object.getPrototypeOf(CardEditorComponent)).apply(this, arguments));
     }
 
-    _createClass(SetEditorComponent, [{
-      key: 'submitSet',
-      value: function submitSet(evt) {
+    _createClass(CardEditorComponent, [{
+      key: "submitCard",
+      value: function submitCard(evt) {
         evt.preventDefault();
 
-        $.ajax({
-          url: '/api/sets',
-          method: 'POST',
-          data: {
-            name: this.nameInput.value,
-            description: this.descriptionInput.value
-          }
-        }).done(function (data) {
+        var cb = function cb() {
           ReactRouter.browserHistory.goBack();
-        });
+        };
+
+        FC.UserData.addCardToSet(this.props.params.setId, this.frontInput.value, this.backInput.value, cb);
       }
     }, {
-      key: 'render',
+      key: "render",
       value: function render() {
         var _this2 = this;
 
         return React.createElement(
-          'div',
-          { className: 'set-editor' },
+          "div",
+          { className: "card-editor" },
           React.createElement(
-            'h2',
+            "h2",
             null,
-            'Set Editor'
+            "The Card Editor"
           ),
           React.createElement(
-            'form',
+            "form",
             { onSubmit: function onSubmit(evt) {
-                _this2.submitSet(evt);
+                _this2.submitCard(evt);
               } },
-            React.createElement('input', { placeholder: 'name', ref: function ref(input) {
-                _this2.nameInput = input;
+            React.createElement("input", { placeholder: "front", ref: function ref(input) {
+                _this2.frontInput = input;
               } }),
-            React.createElement('input', { placeholder: 'description', ref: function ref(input) {
-                _this2.descriptionInput = input;
+            React.createElement("input", { placeholder: "back", ref: function ref(input) {
+                _this2.backInput = input;
               } }),
             React.createElement(
-              'button',
+              "button",
               null,
-              'Save'
+              "Save"
             )
           )
         );
       }
     }]);
 
-    return SetEditorComponent;
+    return CardEditorComponent;
   }(React.Component);
 
-  FC.SetEditorComponent = SetEditorComponent;
+  FC.CardEditorComponent = CardEditorComponent;
 })();
-//# sourceMappingURL=SetEditor.js.map
+//# sourceMappingURL=CardEditorComponent.js.map

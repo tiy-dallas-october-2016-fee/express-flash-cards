@@ -2,7 +2,7 @@ if (window.FC === undefined) { window.FC = {}; }
 
 (function() {
 
-  class Quizzer extends React.Component {
+  class QuizzerComponent extends React.Component {
 
     constructor() {
       super();
@@ -98,6 +98,6 @@ if (window.FC === undefined) { window.FC = {}; }
 
   }
 
-  FC.Quizzer = Quizzer;
+  FC.QuizzerComponent = QuizzerComponent;
 
 })();

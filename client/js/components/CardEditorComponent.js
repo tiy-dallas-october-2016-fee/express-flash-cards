@@ -2,7 +2,7 @@ if (window.FC === undefined) { window.FC = {}; }
 
 (function() {
 
-  class CardEditor extends React.Component {
+  class CardEditorComponent extends React.Component {
 
     submitCard(evt) {
       evt.preventDefault();
@@ -33,6 +33,6 @@ if (window.FC === undefined) { window.FC = {}; }
 
   }
 
-  FC.CardEditor = CardEditor;
+  FC.CardEditorComponent = CardEditorComponent;
 
 })();

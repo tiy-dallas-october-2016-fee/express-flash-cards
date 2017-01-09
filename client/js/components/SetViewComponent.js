@@ -2,7 +2,7 @@ if (window.FC === undefined) { window.FC = {}; }
 
 (function() {
 
-  class SetComponent extends React.Component {
+  class SetViewComponent extends React.Component {
 
     constructor() {
       super();
@@ -59,6 +59,6 @@ if (window.FC === undefined) { window.FC = {}; }
 
   }
 
-  FC.SetComponent = SetComponent;
+  FC.SetViewComponent = SetViewComponent;
 
 })();

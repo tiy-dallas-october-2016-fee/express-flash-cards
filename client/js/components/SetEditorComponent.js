@@ -2,7 +2,7 @@ if (window.FC === undefined) { window.FC = {}; }
 
 (function() {
 
-  class SetEditor extends React.Component {
+  class SetEditorComponent extends React.Component {
 
     submitSet(evt) {
       evt.preventDefault();
@@ -39,6 +39,6 @@ if (window.FC === undefined) { window.FC = {}; }
 
   }
 
-  FC.SetEditor = SetEditor;
+  FC.SetEditorComponent = SetEditorComponent;
 
 })();

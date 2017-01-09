@@ -2,7 +2,7 @@ if (window.FC === undefined) { window.FC = {}; }
 
 (function() {
 
-  class SetList extends React.Component {
+  class SetListComponent extends React.Component {
 
     constructor() {
       super();
@@ -77,5 +77,5 @@ if (window.FC === undefined) { window.FC = {}; }
     }
   }
 
-  FC.SetList = SetList;
+  FC.SetListComponent = SetListComponent;
 })();

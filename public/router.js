@@ -27,4 +27,4 @@ if (window.FC === undefined) {
 
   ReactDOM.render(router, mountNode);
 })();
-//# sourceMappingURL=script.js.map
+//# sourceMappingURL=router.js.map

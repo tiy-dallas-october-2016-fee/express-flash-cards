@@ -77,4 +77,4 @@ if (window.FC === undefined) {
 
   FC.SetEditorComponent = SetEditorComponent;
 })();
-//# sourceMappingURL=SetEditor.js.map
+//# sourceMappingURL=SetEditorComponent.js.map
