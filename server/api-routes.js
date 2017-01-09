@@ -10,13 +10,13 @@ module.exports = function() {
 
   router.get('/api/sets', (req, res) => {
 
-    console.log('get /api/sets', req.user.id);
+    //console.log('get /api/sets', req.user.id);
 
     Set.find({
         userId: req.user.id
       })
       .exec((err, data) => {
-        console.log('find result', err, data);
+        //console.log('find result', err, data);
 
         //convert the output to an array
         var setArray = [];
@@ -31,7 +31,7 @@ module.exports = function() {
           setArray.push(set);
         }
 
-        console.log('going to send', setArray);
+        //console.log('going to send', setArray);
 
         res.send({
           userId: req.user.id,
@@ -44,7 +44,7 @@ module.exports = function() {
   router.post('/api/sets', (req, res) => {
 
     var cb = (data) => {
-      console.log('done saving set', data);
+      //console.log('done saving set', data);
       res.send(data);
     };
 
@@ -59,7 +59,7 @@ module.exports = function() {
 
   router.delete('/api/sets/:setId', (req, res) => {
     var cb = (err, data) => {
-      console.log('done removing', err, data);
+      //console.log('done removing', err, data);
       res.sendStatus(204);
     };
 
@@ -68,11 +68,11 @@ module.exports = function() {
 
   router.post('/api/sets/:setId/card', (req, res) => {
     var cb = (err, data) => {
-      console.log('add card, err, data', err, data);
+      //console.log('add card, err, data', err, data);
       res.send(data);
     }
 
-    console.log('updating set', req.params.setId, 'maybe');
+    //console.log('updating set', req.params.setId, 'maybe');
 
     var card = {
       id: uuid.v4(),
@@ -88,6 +88,36 @@ module.exports = function() {
       {safe: true, upsert: true},
       cb);
   });
+
+
+
+
+  router.post('/api/sets/:setId/card/:position/incorrect', (req, res) => {
+    var matchingObject = {};
+    matchingObject['cards.' + req.params.position + '.incorrectCount']  = 1;
+
+    incrementSubCount(matchingObject, req.params.setId, res);
+  });
+
+  router.post('/api/sets/:setId/card/:position/correct', (req, res) => {
+    var matchingObject = {};
+    matchingObject['cards.' + req.params.position + '.correctCount']  = 1;
+
+    incrementSubCount(matchingObject, req.params.setId, res);
+  });
+
+  function incrementSubCount(matchingObject, setId, res) {
+    var cb = (err, data) => {
+      res.send(data);
+    }
+
+    Set.update(
+      { _id: setId },
+      { $inc: matchingObject },
+      {}, //options
+      cb
+    );
+  }
 
   return router;
 };

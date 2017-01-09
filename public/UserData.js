@@ -46,14 +46,62 @@ if (window.FC === undefined) {
           back: back
         }
       }).done(function (data) {
-        // console.log('got back', data);
-        // var set = userData.sets.find((x) => { return x.id == setId});
-        // set.cards.push({
-        //
-        // });
         FC.UserData.loadSets(cb);
       });
+    },
+
+    incrementIncorrectCountOnCard: function incrementIncorrectCountOnCard(setId, cardId, cb) {
+      var set = userData.sets.find(function (x) {
+        return x.id == setId;
+      });
+      // We have to find the position to update the server correctly.
+      // We need the card to update the correct count in memory.
+      var position;
+      var card;
+      set.cards.forEach(function (x, index) {
+        if (x.id == cardId) {
+          card = x;
+          position = index;
+        }
+      });
+
+      card.incorrectCount += 1;
+
+      $.ajax({
+        url: '/api/sets/' + setId + '/card/' + position + '/incorrect',
+        method: 'POST'
+      }).done(function (data) {
+        cb();
+      });
+    },
+
+    incrementCorrectCountOnCard: function incrementCorrectCountOnCard(setId, cardId, cb) {
+
+      var set = userData.sets.find(function (x) {
+        return x.id == setId;
+      });
+
+      // We have to find the position to update the server correctly.
+      // We need the card to update the correct count in memory.
+      var position;
+      var card;
+      set.cards.forEach(function (x, index) {
+        if (x.id == cardId) {
+          card = x;
+          position = index;
+        }
+      });
+
+      card.correctCount += 1;
+
+      $.ajax({
+        url: '/api/sets/' + setId + '/card/' + position + '/correct',
+        method: 'POST'
+      }).done(function (data) {
+        cb();
+      });
     }
+
   };
 })();
 //# sourceMappingURL=UserData.js.map

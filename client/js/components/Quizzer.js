@@ -18,7 +18,7 @@ if (window.FC === undefined) { window.FC = {}; }
       var cb = (set) => {
 
         // copy and shuffle array
-        var shuffledCards = _.shuffle(set.cards.splice(0));
+        var shuffledCards = _.shuffle(set.cards.slice(0));
 
         this.setState({
           cards: shuffledCards,
@@ -40,6 +40,10 @@ if (window.FC === undefined) { window.FC = {}; }
 
     markCorrect() {
 
+      var card = this.state.cards[this.state.currentCard];
+      card.correctCount += 1;
+      FC.UserData.incrementCorrectCountOnCard(this.props.params.setId, card.id, () => {});
+
       var currentPosition = this.state.currentCard;
       if (currentPosition + 1 >= this.state.cards.length) {
         ReactRouter.browserHistory.goBack();
@@ -52,6 +56,10 @@ if (window.FC === undefined) { window.FC = {}; }
     }
 
     markIncorrect() {
+      var card = this.state.cards[this.state.currentCard];
+      card.incorrectCount += 1;
+      FC.UserData.incrementIncorrectCountOnCard(this.props.params.setId, card.id, () => {});
+
       var copiedState = Object.assign({}, this.state);
       copiedState.currentCard += 1;
       this.setState(copiedState);
