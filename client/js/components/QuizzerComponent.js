@@ -13,18 +13,21 @@ if (window.FC === undefined) { window.FC = {}; }
       }
     }
 
+    createNewQuizState(set) {
+      var shuffledCards = _.shuffle(set.cards.slice(0));
+      return {
+        cards: shuffledCards,
+        currentCard: 0,
+        showFront: true,
+        correctCount: 0,
+        incorrectCount: 0
+      };
+    }
+
     componentDidMount() {
 
       var cb = (set) => {
-
-        // copy and shuffle array
-        var shuffledCards = _.shuffle(set.cards.slice(0));
-
-        this.setState({
-          cards: shuffledCards,
-          currentCard: 0,
-          showFront: true
-        });
+        this.setState(this.createNewQuizState(set));
       };
 
       FC.UserData.getSet(this.props.params.setId, cb);
@@ -44,14 +47,9 @@ if (window.FC === undefined) { window.FC = {}; }
       card.correctCount += 1;
       FC.UserData.incrementCorrectCountOnCard(this.props.params.setId, card.id, () => {});
 
-      var currentPosition = this.state.currentCard;
-      if (currentPosition + 1 >= this.state.cards.length) {
-        ReactRouter.browserHistory.goBack();
-        return;
-      }
-
       var copiedState = Object.assign({}, this.state);
       copiedState.currentCard += 1;
+      copiedState.correctCount += 1;
       this.setState(copiedState);
     }
 
@@ -62,14 +60,16 @@ if (window.FC === undefined) { window.FC = {}; }
 
       var copiedState = Object.assign({}, this.state);
       copiedState.currentCard += 1;
+      copiedState.incorrectCount += 1;
       this.setState(copiedState);
     }
 
     render() {
-
       var cardShower;
       var cardNavigation;
-      if (this.state.cards !== undefined) {
+      var summary;
+
+      if (this.state.cards !== undefined && this.state.currentCard != this.state.cards.length) {
         var currentCard = this.state.cards[this.state.currentCard];
         var textToShow = this.state.showFront ? currentCard.front: currentCard.back;
 
@@ -87,10 +87,16 @@ if (window.FC === undefined) { window.FC = {}; }
           <div className="incorrect" onClick={() => {this.markIncorrect();}}>Incorrect</div>
         </div>;
       }
+      else {
+        summary = <FC.SummaryComponent
+          correct={this.state.correctCount}
+          incorrect={this.state.incorrectCount} />
+      }
 
       return <div className="quizzer">
-        The Quizzer
+        <h2>The Quizzer</h2>
 
+        {summary}
         {cardShower}
         {cardNavigation}
       </div>

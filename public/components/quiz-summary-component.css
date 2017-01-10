@@ -1,0 +1,11 @@
+.quiz-summary-component .correct {
+  margin: 10px 0; }
+
+.quiz-summary-component .incorrect {
+  margin: 10px 0; }
+
+.quiz-summary-component .summary-choices div {
+  display: inline-block;
+  margin: 20px 20px 20px 0; }
+
+/*# sourceMappingURL=quiz-summary-component.css.map */

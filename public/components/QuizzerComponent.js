@@ -29,20 +29,24 @@ if (window.FC === undefined) {
     }
 
     _createClass(QuizzerComponent, [{
+      key: "createNewQuizState",
+      value: function createNewQuizState(set) {
+        var shuffledCards = _.shuffle(set.cards.slice(0));
+        return {
+          cards: shuffledCards,
+          currentCard: 0,
+          showFront: true,
+          correctCount: 0,
+          incorrectCount: 0
+        };
+      }
+    }, {
       key: "componentDidMount",
       value: function componentDidMount() {
         var _this2 = this;
 
         var cb = function cb(set) {
-
-          // copy and shuffle array
-          var shuffledCards = _.shuffle(set.cards.slice(0));
-
-          _this2.setState({
-            cards: shuffledCards,
-            currentCard: 0,
-            showFront: true
-          });
+          _this2.setState(_this2.createNewQuizState(set));
         };
 
         FC.UserData.getSet(this.props.params.setId, cb);
@@ -63,14 +67,9 @@ if (window.FC === undefined) {
         card.correctCount += 1;
         FC.UserData.incrementCorrectCountOnCard(this.props.params.setId, card.id, function () {});
 
-        var currentPosition = this.state.currentCard;
-        if (currentPosition + 1 >= this.state.cards.length) {
-          ReactRouter.browserHistory.goBack();
-          return;
-        }
-
         var copiedState = Object.assign({}, this.state);
         copiedState.currentCard += 1;
+        copiedState.correctCount += 1;
         this.setState(copiedState);
       }
     }, {
@@ -82,6 +81,7 @@ if (window.FC === undefined) {
 
         var copiedState = Object.assign({}, this.state);
         copiedState.currentCard += 1;
+        copiedState.incorrectCount += 1;
         this.setState(copiedState);
       }
     }, {
@@ -91,7 +91,9 @@ if (window.FC === undefined) {
 
         var cardShower;
         var cardNavigation;
-        if (this.state.cards !== undefined) {
+        var summary;
+
+        if (this.state.cards !== undefined && this.state.currentCard != this.state.cards.length) {
           var currentCard = this.state.cards[this.state.currentCard];
           var textToShow = this.state.showFront ? currentCard.front : currentCard.back;
 
@@ -133,12 +135,21 @@ if (window.FC === undefined) {
               "Incorrect"
             )
           );
+        } else {
+          summary = React.createElement(FC.SummaryComponent, {
+            correct: this.state.correctCount,
+            incorrect: this.state.incorrectCount });
         }
 
         return React.createElement(
           "div",
           { className: "quizzer" },
-          "The Quizzer",
+          React.createElement(
+            "h2",
+            null,
+            "The Quizzer"
+          ),
+          summary,
           cardShower,
           cardNavigation
         );
