@@ -105,6 +105,31 @@ footer {
 .card-list {
   border: solid 1px blue; }
 
+.set-list .create-set {
+  display: block; }
+
+.set-list .sorting {
+  border: solid 1px #000;
+  display: inline-block;
+  margin: 10px 0;
+  padding: 20px; }
+  .set-list .sorting div {
+    float: left; }
+  .set-list .sorting div:first-child {
+    margin-right: 40px; }
+
+.set-list .sorting.by-name .by-name {
+  font-weight: bold; }
+
+.set-list .sorting.by-name .by-card-count {
+  color: #666; }
+
+.set-list .sorting.by-count .by-card-count {
+  font-weight: bold; }
+
+.set-list .sorting.by-count .by-name {
+  color: #666; }
+
 .set-list .set {
   border: solid 1px #000;
   margin: 10px 0;
@@ -161,14 +186,14 @@ footer {
   display: inline-block;
   padding: 10px; }
 
-.quiz-summary-component .correct {
-  margin: 10px 0; }
-
-.quiz-summary-component .incorrect {
-  margin: 10px 0; }
-
-.quiz-summary-component .summary-choices div {
+.quizzer .summary-choices div {
   display: inline-block;
   margin: 20px 20px 20px 0; }
+
+.quiz-summary-component .correct, .quiz-summary-component .incorrect, .quiz-summary-component .skipped {
+  margin: 10px 0; }
+
+.quiz-summary-component canvas {
+  border: solid 1px #000; }
 
 /*# sourceMappingURL=style.css.map */

@@ -37,7 +37,8 @@ if (window.FC === undefined) {
           currentCard: 0,
           showFront: true,
           correctCount: 0,
-          incorrectCount: 0
+          incorrectCount: 0,
+          skippedCount: 0
         };
       }
     }, {
@@ -85,6 +86,14 @@ if (window.FC === undefined) {
         this.setState(copiedState);
       }
     }, {
+      key: "skip",
+      value: function skip() {
+        var copiedState = Object.assign({}, this.state);
+        copiedState.currentCard += 1;
+        copiedState.skippedCount += 1;
+        this.setState(copiedState);
+      }
+    }, {
       key: "render",
       value: function render() {
         var _this3 = this;
@@ -92,6 +101,7 @@ if (window.FC === undefined) {
         var cardShower;
         var cardNavigation;
         var summary;
+        var summaryNavigation;
 
         if (this.state.cards !== undefined && this.state.currentCard != this.state.cards.length) {
           var currentCard = this.state.cards[this.state.currentCard];
@@ -133,12 +143,35 @@ if (window.FC === undefined) {
                   _this3.markIncorrect();
                 } },
               "Incorrect"
+            ),
+            React.createElement(
+              "div",
+              { className: "skip", onClick: function onClick() {
+                  _this3.skip();
+                } },
+              "Skip"
             )
           );
         } else {
-          summary = React.createElement(FC.SummaryComponent, {
+          summary = React.createElement(FC.QuizSummaryComponent, {
             correct: this.state.correctCount,
-            incorrect: this.state.incorrectCount });
+            incorrect: this.state.incorrectCount,
+            skipped: this.state.skippedCount });
+
+          summaryNavigation = React.createElement(
+            "div",
+            { className: "summary-choices" },
+            React.createElement(
+              "div",
+              null,
+              "Quiz again"
+            ),
+            React.createElement(
+              "div",
+              null,
+              "Back to set list"
+            )
+          );
         }
 
         return React.createElement(
@@ -150,6 +183,7 @@ if (window.FC === undefined) {
             "The Quizzer"
           ),
           summary,
+          summaryNavigation,
           cardShower,
           cardNavigation
         );

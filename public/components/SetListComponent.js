@@ -22,7 +22,8 @@ if (window.FC === undefined) {
       var _this = _possibleConstructorReturn(this, (SetListComponent.__proto__ || Object.getPrototypeOf(SetListComponent)).call(this));
 
       _this.state = {
-        sets: []
+        sets: [],
+        sortBy: 'name'
       };
       return _this;
     }
@@ -39,8 +40,35 @@ if (window.FC === undefined) {
 
         FC.UserData.loadSets(function (data) {
           _this2.setState({
-            sets: data.sets
+            sets: data.sets,
+            sortBy: _this2.state.sortBy
           });
+        });
+      }
+    }, {
+      key: 'sortByName',
+      value: function sortByName() {
+        var clonedArray = this.state.sets.slice(0);
+        clonedArray = clonedArray.sort(function (a, b) {
+          return a.name > b.name;
+        });
+
+        this.setState({
+          sets: clonedArray,
+          sortBy: 'name'
+        });
+      }
+    }, {
+      key: 'sortByCardCount',
+      value: function sortByCardCount() {
+        var clonedArray = this.state.sets.slice(0);
+        clonedArray = clonedArray.sort(function (a, b) {
+          return a.cards.length < b.cards.length;
+        });
+
+        this.setState({
+          sets: clonedArray,
+          sortBy: 'cardCount'
         });
       }
     }, {
@@ -70,8 +98,6 @@ if (window.FC === undefined) {
       value: function render() {
         var _this4 = this;
 
-        console.log('SetList.render', this.state);
-
         var noSetsMessaging;
         if (this.state.sets.length === 0) {
           noSetsMessaging = React.createElement(
@@ -79,6 +105,13 @@ if (window.FC === undefined) {
             null,
             'You do not have any sets! Create one.'
           );
+        }
+
+        var sortingClass = 'sorting ';
+        if (this.state.sortBy === 'name') {
+          sortingClass += 'by-name';
+        } else {
+          sortingClass += 'by-count';
         }
 
         return React.createElement(
@@ -92,8 +125,26 @@ if (window.FC === undefined) {
           noSetsMessaging,
           React.createElement(
             ReactRouter.Link,
-            { to: '/create-set' },
+            { to: '/create-set', className: 'create-set' },
             'Create new set'
+          ),
+          React.createElement(
+            'div',
+            { className: sortingClass },
+            React.createElement(
+              'div',
+              { className: 'by-name', onClick: function onClick() {
+                  return _this4.sortByName();
+                } },
+              'by name'
+            ),
+            React.createElement(
+              'div',
+              { className: 'by-card-count', onClick: function onClick() {
+                  return _this4.sortByCardCount();
+                } },
+              'by # of cards'
+            )
           ),
           React.createElement(
             'ul',

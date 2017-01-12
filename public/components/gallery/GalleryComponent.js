@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -13,56 +13,46 @@ if (window.FC === undefined) {
 }
 
 (function () {
-  var QuizSummaryComponent = function (_React$Component) {
-    _inherits(QuizSummaryComponent, _React$Component);
 
-    function QuizSummaryComponent() {
-      _classCallCheck(this, QuizSummaryComponent);
+  var mountNode = document.querySelector('#react-root');
 
-      return _possibleConstructorReturn(this, (QuizSummaryComponent.__proto__ || Object.getPrototypeOf(QuizSummaryComponent)).apply(this, arguments));
+  var GalleryComponent = function (_React$Component) {
+    _inherits(GalleryComponent, _React$Component);
+
+    function GalleryComponent() {
+      _classCallCheck(this, GalleryComponent);
+
+      return _possibleConstructorReturn(this, (GalleryComponent.__proto__ || Object.getPrototypeOf(GalleryComponent)).apply(this, arguments));
     }
 
-    _createClass(QuizSummaryComponent, [{
-      key: "componentDidMount",
-      value: function componentDidMount() {
-        var ctx = this.canvas.getContext('2d');
-        ctx.fillRect(0, 0, 50, 50);
-      }
-    }, {
-      key: "render",
+    _createClass(GalleryComponent, [{
+      key: 'render',
       value: function render() {
-        var _this2 = this;
-
         return React.createElement(
-          "div",
-          { className: "quiz-summary-component" },
+          'div',
+          null,
           React.createElement(
-            "h2",
+            'h1',
             null,
-            "Summary"
+            'Gallery'
           ),
-          React.createElement(
-            "p",
-            { className: "correct" },
-            "Correct: ",
-            this.props.correct
-          ),
-          React.createElement(
-            "p",
-            { className: "incorrect" },
-            "Incorrect: ",
-            this.props.incorrect
-          ),
-          React.createElement("canvas", { ref: function ref(dom) {
-              _this2.canvas = dom;
-            } })
+          React.createElement(FC.QuizSummaryComponent, {
+            correct: 5,
+            incorrect: 5,
+            skipped: 0
+          }),
+          React.createElement(FC.QuizSummaryComponent, {
+            correct: 2,
+            incorrect: 1,
+            skipped: 7
+          })
         );
       }
     }]);
 
-    return QuizSummaryComponent;
+    return GalleryComponent;
   }(React.Component);
 
-  FC.QuizSummaryComponent = QuizSummaryComponent;
+  ReactDOM.render(React.createElement(GalleryComponent, null), mountNode);
 })();
-//# sourceMappingURL=SummaryComponent.js.map
+//# sourceMappingURL=GalleryComponent.js.map

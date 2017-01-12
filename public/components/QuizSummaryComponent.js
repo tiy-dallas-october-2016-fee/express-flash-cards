@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -13,6 +13,16 @@ if (window.FC === undefined) {
 }
 
 (function () {
+
+  var canvasHeight = 100;
+  var canvasTopPadding = 10;
+  var canvasHorizontalPadding = 10;
+  var canvasBarWidth = 60;
+  var availableDrawHeight = 90;
+  var correctColor = '#367c27';
+  var incorrectColor = '#F00';
+  var skippedColor = '#000';
+
   var QuizSummaryComponent = function (_React$Component) {
     _inherits(QuizSummaryComponent, _React$Component);
 
@@ -23,37 +33,59 @@ if (window.FC === undefined) {
     }
 
     _createClass(QuizSummaryComponent, [{
-      key: "componentDidMount",
+      key: 'componentDidMount',
       value: function componentDidMount() {
         var ctx = this.canvas.getContext('2d');
-        ctx.fillRect(0, 0, 50, 50);
+
+        this.drawBar(this.props.correct / 10, correctColor, 0, ctx);
+        this.drawBar(this.props.incorrect / 10, incorrectColor, 1, ctx);
+        this.drawBar(this.props.skipped / 10, skippedColor, 2, ctx);
       }
     }, {
-      key: "render",
+      key: 'drawBar',
+      value: function drawBar(percentageHeight, color, spot, ctx) {
+        console.log(percentageHeight);
+
+        var barHeight = availableDrawHeight * percentageHeight;
+        var xloc = canvasBarWidth * spot + canvasHorizontalPadding * (spot + 1);
+        var yloc = canvasHeight - barHeight;
+
+        ctx.fillStyle = color;
+        console.log('draw at x', xloc);
+        ctx.fillRect(xloc, yloc, canvasBarWidth, barHeight);
+      }
+    }, {
+      key: 'render',
       value: function render() {
         var _this2 = this;
 
         return React.createElement(
-          "div",
-          { className: "quiz-summary-component" },
+          'div',
+          { className: 'quiz-summary-component' },
           React.createElement(
-            "h2",
+            'h2',
             null,
-            "Summary"
+            'Summary'
           ),
           React.createElement(
-            "p",
-            { className: "correct" },
-            "Correct: ",
+            'p',
+            { className: 'correct', style: { color: correctColor } },
+            'Correct: ',
             this.props.correct
           ),
           React.createElement(
-            "p",
-            { className: "incorrect" },
-            "Incorrect: ",
+            'p',
+            { className: 'incorrect', style: { color: incorrectColor } },
+            'Incorrect: ',
             this.props.incorrect
           ),
-          React.createElement("canvas", { ref: function ref(dom) {
+          React.createElement(
+            'p',
+            { className: 'skipped', style: { color: skippedColor } },
+            'Skipped: ',
+            this.props.skipped
+          ),
+          React.createElement('canvas', { width: '220', height: canvasHeight, ref: function ref(dom) {
               _this2.canvas = dom;
             } })
         );
@@ -65,4 +97,4 @@ if (window.FC === undefined) {
 
   FC.QuizSummaryComponent = QuizSummaryComponent;
 })();
-//# sourceMappingURL=SummaryComponent.js.map
+//# sourceMappingURL=QuizSummaryComponent.js.map

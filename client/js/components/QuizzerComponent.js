@@ -20,7 +20,8 @@ if (window.FC === undefined) { window.FC = {}; }
         currentCard: 0,
         showFront: true,
         correctCount: 0,
-        incorrectCount: 0
+        incorrectCount: 0,
+        skippedCount: 0
       };
     }
 
@@ -64,10 +65,18 @@ if (window.FC === undefined) { window.FC = {}; }
       this.setState(copiedState);
     }
 
+    skip() {
+      var copiedState = Object.assign({}, this.state);
+      copiedState.currentCard += 1;
+      copiedState.skippedCount += 1;
+      this.setState(copiedState);
+    }
+
     render() {
       var cardShower;
       var cardNavigation;
       var summary;
+      var summaryNavigation;
 
       if (this.state.cards !== undefined && this.state.currentCard != this.state.cards.length) {
         var currentCard = this.state.cards[this.state.currentCard];
@@ -85,18 +94,27 @@ if (window.FC === undefined) { window.FC = {}; }
         cardNavigation = <div className="card-navigation">
           <div className="correct" onClick={() => { this.markCorrect();}}>Correct</div>
           <div className="incorrect" onClick={() => {this.markIncorrect();}}>Incorrect</div>
+          <div className="skip" onClick={() => {this.skip();}}>Skip</div>
+
         </div>;
       }
       else {
-        summary = <FC.SummaryComponent
+        summary = <FC.QuizSummaryComponent
           correct={this.state.correctCount}
-          incorrect={this.state.incorrectCount} />
+          incorrect={this.state.incorrectCount}
+          skipped={this.state.skippedCount} />
+
+        summaryNavigation = <div className="summary-choices">
+            <div>Quiz again</div>
+            <div>Back to set list</div>
+          </div>;
       }
 
       return <div className="quizzer">
         <h2>The Quizzer</h2>
 
         {summary}
+        {summaryNavigation}
         {cardShower}
         {cardNavigation}
       </div>
