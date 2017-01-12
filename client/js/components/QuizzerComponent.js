@@ -15,6 +15,11 @@ if (window.FC === undefined) { window.FC = {}; }
 
     createNewQuizState(set) {
       var shuffledCards = _.shuffle(set.cards.slice(0));
+      var sliceEnd = 10;
+      if (shuffledCards.length < 10) {
+        slideEnd = shuffledCards.length;
+      }
+      shuffledCards = shuffledCards.slice(0, sliceEnd);
       return {
         cards: shuffledCards,
         currentCard: 0,
