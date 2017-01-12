@@ -6,8 +6,7 @@ var nodemon = require('gulp-nodemon');
 var shell = require('gulp-shell');
 var concat = require('gulp-concat');
 
-gulp.task('default', ['sass', 'sass:watch', 'babel', 'babel:watch', 'start']);
-gulp.task('no-restart', ['sass', 'sass:watch', 'babel', 'babel:watch', 'server']);
+gulp.task('default', ['sass', 'sass:watch', 'babel', 'babel-gallery', 'babel:watch', 'start']);
 
 gulp.task('sass', function () {
   //wildcard search for files
@@ -40,8 +39,24 @@ gulp.task('babel', function() {
       .pipe(gulp.dest('public'));
 });
 
+gulp.task('babel-gallery', function() {
+  return gulp.src(
+      [
+        './client/js/components/*.js',
+        './client/js/gallery.js'
+      ])
+      .pipe(sourcemaps.init())
+      .pipe(babel({
+          presets: ['es2015', 'react']
+      }))
+      .on('error', console.error.bind(console))
+      .pipe(concat('gallery.js'))
+      .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest('public'));
+});
+
 gulp.task('babel:watch', function () {
-  gulp.watch('./client/js/**/*.js', ['babel']);
+  gulp.watch('./client/js/**/*.js', ['babel', 'babel-gallery']);
 });
 
 
